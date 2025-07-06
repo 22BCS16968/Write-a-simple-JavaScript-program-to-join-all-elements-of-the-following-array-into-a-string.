@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Array and String Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .section {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    label, input, textarea {
+      display: block;
+      margin: 10px 0;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+    }
+    button {
+      padding: 8px 15px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .output {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>JavaScript Interactive Exercises</h2>
+
+  <!-- 1. Join Array -->
+  <div class="section">
+    <h3>1. Join Array</h3>
+    <label>Enter array (comma-separated):</label>
+    <input type="text" id="joinArrayInput" placeholder="Red,Green,White,Black">
+    <label>Join with:</label>
+    <input type="text" id="joinSeparator" placeholder=", or +">
+    <button onclick="joinArray()">Join</button>
+    <div class="output" id="joinOutput"></div>
+  </div>
+
+  <!-- 2. Truncate String -->
+  <div class="section">
+    <h3>2. Truncate String</h3>
+    <label>Enter a string:</label>
+    <input type="text" id="truncateStringInput" placeholder="Robin Singh">
+    <label>Length:</label>
+    <input type="number" id="truncateLength" value="4">
+    <button onclick="truncateStr()">Truncate</button>
+    <div class="output" id="truncateOutput"></div>
+  </div>
+
+  <!-- 3. Capitalize Words -->
+  <div class="section">
+    <h3>3. Capitalize Each Word</h3>
+    <label>Enter a sentence:</label>
+    <input type="text" id="capitalizeInput" placeholder="js string exercises">
+    <button onclick="capitalizeWords()">Capitalize</button>
+    <div class="output" id="capitalizeOutput"></div>
+  </div>
+
+  <!-- 4. Most Frequent Element -->
+  <div class="section">
+    <h3>4. Most Frequent Element</h3>
+    <label>Enter array (comma-separated):</label>
+    <input type="text" id="freqInput" placeholder="3,a,a,a,2,3,a,3,a,2,4,9,3">
+    <button onclick="findMostFrequent()">Find Most Frequent</button>
+    <div class="output" id="freqOutput"></div>
+  </div>
+
+  <!-- 5. Filter Between -->
+  <div class="section">
+    <h3>5. Filter Values Between</h3>
+    <label>Low:</label>
+    <input type="number" id="low">
+    <label>High:</label>
+    <input type="number" id="high">
+    <label>Array (comma-separated):</label>
+    <input type="text" id="betweenArrayInput" placeholder="1,5,95,0,4,7">
+    <button onclick="arrBetween()">Filter</button>
+    <div class="output" id="betweenOutput"></div>
+  </div>
+
+  <!-- 6. Find Index -->
+  <div class="section">
+    <h3>6. Find Index</h3>
+    <label>Enter array (comma-separated):</label>
+    <input type="text" id="findIndexArray" placeholder="hi,edabit,fgh,abc">
+    <label>Value to search:</label>
+    <input type="text" id="findIndexValue" placeholder="fgh">
+    <button onclick="findIndexVal()">Find Index</button>
+    <div class="output" id="indexOutput"></div>
+  </div>
+
+  <script>
+    function joinArray() {
+      let arr = document.getElementById("joinArrayInput").value.split(',');
+      let sep = document.getElementById("joinSeparator").value;
+      document.getElementById("joinOutput").textContent = arr.join(sep);
+    }
+
+    function truncateStr() {
+      let str = document.getElementById("truncateStringInput").value;
+      let len = parseInt(document.getElementById("truncateLength").value);
+      document.getElementById("truncateOutput").textContent = str.slice(0, len);
+    }
+
+    function capitalizeWords() {
+      let str = document.getElementById("capitalizeInput").value;
+      let result = str.replace(/\b\w/g, char => char.toUpperCase());
+      document.getElementById("capitalizeOutput").textContent = result;
+    }
+
+    function findMostFrequent() {
+      let arr = document.getElementById("freqInput").value.split(',');
+      let freqMap = {};
+      let maxItem = arr[0];
+      let maxCount = 1;
+      for (let item of arr) {
+        freqMap[item] = (freqMap[item] || 0) + 1;
+        if (freqMap[item] > maxCount) {
+          maxItem = item;
+          maxCount = freqMap[item];
+        }
+      }
+      document.getElementById("freqOutput").textContent = `${maxItem} ( ${maxCount} times )`;
+    }
+
+    function arrBetween() {
+      let low = parseFloat(document.getElementById("low").value);
+      let high = parseFloat(document.getElementById("high").value);
+      let arr = document.getElementById("betweenArrayInput").value.split(',').map(Number);
+      let result = arr.filter(num => num > low && num < high);
+      document.getElementById("betweenOutput").textContent = result.join(', ');
+    }
+
+    function findIndexVal() {
+      let arr = document.getElementById("findIndexArray").value.split(',');
+      let value = document.getElementById("findIndexValue").value;
+      let index = arr.indexOf(value);
+      document.getElementById("indexOutput").textContent = `Index: ${index}`;
+    }
+  </script>
+
+</body>
+</html>
